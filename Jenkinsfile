@@ -38,7 +38,6 @@ pipeline {
         //     steps {
         //         sh 'chmod -R 775 storage bootstrap/cache'
         //         sh 'chown -R www-data:www-data .'
-                
         //     }
         // }
 
@@ -52,6 +51,7 @@ pipeline {
             steps {
                 sh 'sudo systemctl restart nginx'
                 sh 'sudo systemctl restart php8.3.6-fpm'
+            }
         }
     }
 }
