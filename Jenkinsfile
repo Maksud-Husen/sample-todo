@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DEPLOY_DIR = '/var/www/html/'
-        REPO_URL = 'git@github.com:Prabhasgyawali/sample_todo.git'
+        REPO_URL = 'git@github.com:Prabhasgyawali/sample-todo.git'
         BRANCH = 'master'
     }
 
