@@ -46,11 +46,11 @@ pipeline {
             }
         }
 
-        stage('Restart Nginx & PHP') {
-            steps {
-                sh 'systemctl restart nginx'
-                sh 'systemctl restart php8.3.6-fpm'
-            }
-        }
+        // stage('Restart Nginx & PHP') {
+        //     steps {
+        //         sh 'systemctl restart nginx'
+        //         sh 'systemctl restart php8.3.6-fpm'
+        //     }
+        // }
     }
 }
