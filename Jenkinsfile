@@ -42,7 +42,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh "rsync -av --delete ./ ${DEPLOY_DIR}"
+                sh "mv --delete ./ ${DEPLOY_DIR}"
             }
         }
 
