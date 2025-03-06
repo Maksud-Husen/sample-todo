@@ -21,12 +21,6 @@ pipeline {
             }
         }
 
-        // stage('Run Tests') {
-        //     steps {
-        //         sh 'php artisan test'
-        //     }
-        // }
-
         stage('Build Assets') {
             steps {
                 sh 'npm install && npm run build'
@@ -46,11 +40,11 @@ pipeline {
             }
         }
 
-        // stage('Restart Nginx & PHP') {
-        //     steps {
-        //         sh 'systemctl restart nginx'
-        //         sh 'systemctl restart php8.3.6-fpm'
-        //     }
-        // }
+        stage('Restart Nginx & PHP') {
+            steps {
+                sh 'systemctl restart nginx'
+                sh 'systemctl restart php8.3.6-fpm'
+            }
+        }
     }
 }
