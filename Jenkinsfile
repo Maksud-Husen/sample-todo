@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DEPLOY_DIR = '/var/www/html/'
+        DEPLOY_DIR = '/var/www/html/Todo'
         REPO_URL = 'git@github.com:Prabhasgyawali/sample-todo.git'
         BRANCH = 'master'
     }
