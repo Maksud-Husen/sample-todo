@@ -42,14 +42,14 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh "sudo rsync -av --delete ./ ${DEPLOY_DIR}"
+                sh "rsync -av --delete ./ ${DEPLOY_DIR}"
             }
         }
 
         stage('Restart Nginx & PHP') {
             steps {
-                sh 'sudo systemctl restart nginx'
-                sh 'sudo systemctl restart php8.3.6-fpm'
+                sh 'systemctl restart nginx'
+                sh 'systemctl restart php8.3.6-fpm'
             }
         }
     }
