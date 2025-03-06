@@ -13,18 +13,6 @@ pipeline {
                 git branch: env.BRANCH, url: env.REPO_URL
             }
         }
-       stage('Install Composer') {
-            steps {
-                script {
-                    // Install Composer
-                    sh '''
-                        curl -sS https://getcomposer.org/installer | php
-                        mv composer.phar /usr/local/bin/composer
-                    '''
-                }
-            }
-        }
-
         stage('Install Dependencies') {
             steps {
                 sh 'composer install --no-dev --prefer-dist'
