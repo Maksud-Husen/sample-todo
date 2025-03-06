@@ -42,7 +42,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh "mv ./ ${DEPLOY_DIR}"
+                sh "mv -r ./ ${DEPLOY_DIR}"
             }
         }
 
