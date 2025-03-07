@@ -10,7 +10,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 script {
-                    git branch: 'main', credentialsId: 'your-ssh-key-id', url: 'git@github.com:Prabhasgyawali/sample-todo.git'
+                    git branch: 'master', url: 'git@github.com:Prabhasgyawali/sample-todo.git'
                 }
             }
         }
