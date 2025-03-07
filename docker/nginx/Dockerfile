@@ -1,7 +1,7 @@
 FROM nginx:latest
 
 # Copy custom Nginx configuration
-COPY ./default.conf /etc/nginx/conf.d/default.conf
+COPY /docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 
 # Expose port
 EXPOSE 80
