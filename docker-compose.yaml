@@ -1,4 +1,4 @@
-version: '28.0.1'
+version: '3.8'
 
 services:
   app:
@@ -11,8 +11,8 @@ services:
       - .:/var/www/html/Todo
     environment:
       - APP_ENV=local
-    # depends_on:
-    #   - db
+    depends_on:
+      - db
     networks:
       - laravel
 
@@ -30,7 +30,19 @@ services:
     networks:
       - laravel
 
+  db:
+    image: mysql:5.7
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: laravel_db
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - laravel
+
 networks:
   laravel:
 
-
+volumes:
+  db_data:
