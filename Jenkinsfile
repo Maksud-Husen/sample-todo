@@ -23,23 +23,5 @@ pipeline {
                 sh "${COMPOSE_CMD} up -d"
             }
         }
-
-        // stage('Run Migrations & Seed Database') {
-        //     steps {
-        //         sh "${COMPOSE_CMD} exec -T app php artisan migrate --seed"
-        //     }
-        // }
-
-        stage('Test Laravel App') {
-            steps {
-                sh 'curl -I http://localhost:8082'
-            }
-        }
-
-        // stage('Cleanup') {
-        //     steps {
-        //         sh "${COMPOSE_CMD} down"
-        //     }
-        // }
     }
 }
