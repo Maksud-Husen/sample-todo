@@ -24,11 +24,11 @@ pipeline {
             }
         }
 
-        stage('Run Migrations & Seed Database') {
-            steps {
-                sh "${COMPOSE_CMD} exec -T app php artisan migrate --seed"
-            }
-        }
+        // stage('Run Migrations & Seed Database') {
+        //     steps {
+        //         sh "${COMPOSE_CMD} exec -T app php artisan migrate --seed"
+        //     }
+        // }
 
         stage('Test Laravel App') {
             steps {
