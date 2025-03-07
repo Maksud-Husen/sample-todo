@@ -3,14 +3,17 @@ pipeline {
 
     environment {
         COMPOSE_CMD = 'docker-compose'
-        PROJECT_DIR = '/var/www/html/Todo' // Ensure it matches your Docker setup
     }
 
     stages {
         stage('Clone Repository') {
             steps {
                 script {
-                    git branch: 'master', url: 'git@github.com:Prabhasgyawali/sample-todo.git'
+                    checkout([$class: 'GitSCM',
+                        branches: [[name: '*/master']], // Update if your branch is 'master'
+                        userRemoteConfigs: [[ url: 'git@github.com:Prabhasgyawali/sample-todo.git', // Ensure this exists in Jenkins
+                        ]]
+                    ])
                 }
             }
         }
@@ -33,21 +36,13 @@ pipeline {
             }
         }
 
-        stage('Run Laravel Migrations') {
-            steps {
-                sh "docker exec -it laravel_app php artisan migrate --force"
-            }
-        }
     }
 
     post {
         always {
             script {
-                sh "${COMPOSE_CMD} logs"
+                sh "${COMPOSE_CMD} logs || true"
             }
-        }
-        cleanup {
-            sh "${COMPOSE_CMD} down --remove-orphans"
         }
     }
 }
