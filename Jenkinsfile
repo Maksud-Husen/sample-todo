@@ -2,48 +2,43 @@ pipeline {
     agent any
 
     environment {
-        DEPLOY_DIR = '/var/www/html/Todo'
-        REPO_URL = 'git@github.com:Prabhasgyawali/sample-todo.git'
-        BRANCH = 'master'
+        COMPOSE_CMD = 'docker-compose'
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: env.BRANCH, url: env.REPO_URL
-            }
-        }
-        stage('Install Dependencies') {
-            steps {
-                sh 'composer install --no-dev --prefer-dist'
-                sh 'cp .env.example .env'
-                sh 'php artisan key:generate'
+                git 'https://github.com/your-repo/laravel-docker.git'
             }
         }
 
-        stage('Build Assets') {
+        stage('Build Laravel Containers') {
             steps {
-                sh 'npm install && npm run build'
+                sh "${COMPOSE_CMD} build"
             }
         }
 
-        // stage('Set Permissions') {
+        stage('Start Containers') {
+            steps {
+                sh "${COMPOSE_CMD} up -d"
+            }
+        }
+
+        stage('Run Migrations & Seed Database') {
+            steps {
+                sh "${COMPOSE_CMD} exec -T app php artisan migrate --seed"
+            }
+        }
+
+        stage('Test Laravel App') {
+            steps {
+                sh 'curl -I http://localhost:8082'
+            }
+        }
+
+        // stage('Cleanup') {
         //     steps {
-        //         sh 'chmod -R 775 storage bootstrap/cache'
-        //         sh 'chown -R www-data:www-data .'
-        //     }
-        // }
-
-        stage('Deploy') {
-            steps {
-                sh "cp -r . ${DEPLOY_DIR}"
-            }
-        }
-
-        // stage('Restart Nginx & PHP') {
-        //     steps {
-        //         sh 'systemctl restart nginx'
-        //         sh 'systemctl restart php8.3.6-fpm'
+        //         sh "${COMPOSE_CMD} down"
         //     }
         // }
     }
