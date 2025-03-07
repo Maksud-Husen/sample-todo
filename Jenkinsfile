@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/your-repo/laravel-docker.git'
+                git 'git@github.com:Prabhasgyawali/sample-todo.git'
             }
         }
 
