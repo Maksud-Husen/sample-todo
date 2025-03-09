@@ -37,7 +37,6 @@ RUN chmod 644 .env
 
 
 RUN php artisan key:generate
-RUN php artisan migrate
 
 # Expose port for PHP-FPM
 EXPOSE 9000
