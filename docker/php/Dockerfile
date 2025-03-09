@@ -24,6 +24,12 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copy only necessary files first to leverage caching
 COPY composer.json composer.lock ./
 
+
+COPY . /var/www/html/Todo/
+COPY .env.example .env
+RUN chmod 777 .env
+
+
 # Install dependencies
 # RUN composer install --no-dev --no-scripts --prefer-dist --no-progress --no-interaction
 RUN sed 's_@php artisan package:discover_/bin/true_;' -i composer.json \
@@ -38,9 +44,6 @@ RUN sed 's_@php artisan package:discover_/bin/true_;' -i composer.json \
 
 
 # Copy application files
-COPY . /var/www/html/Todo/
-COPY .env.example .env
-RUN chmod 644 .env
 
 
 RUN php artisan key:generate
