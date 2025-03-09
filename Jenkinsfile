@@ -10,8 +10,8 @@ pipeline {
             steps {
                 script {
                     checkout([$class: 'GitSCM',
-                        branches: [[name: '*/master']], // Update if your branch is 'master'
-                        userRemoteConfigs: [[ url: 'git@github.com:Prabhasgyawali/sample-todo.git', // Ensure this exists in Jenkins
+                        branches: [[name: '*/master']],
+                        userRemoteConfigs: [[ url: 'git@github.com:Prabhasgyawali/sample-todo.git',
                         ]]
                     ])
                 }
