@@ -11,7 +11,7 @@ services:
     environment:
       - APP_ENV=local
     networks:
-      - laravel
+      - bridge
 
   webserver:
     build:
@@ -27,10 +27,10 @@ services:
     depends_on:
       - app
     networks:
-      - laravel
+      - bridge
 
 networks:
-  laravel:
+  bridge:
     driver: bridge
 
 volumes:
