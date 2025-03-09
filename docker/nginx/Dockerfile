@@ -4,7 +4,7 @@ FROM nginx:latest
 WORKDIR /var/www/html/Todo
 
 # Copy custom Nginx configuration
-COPY ./docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY ./default.conf /etc/nginx/conf.d/default.conf
 
 # Set correct permissions
 RUN chmod -R 755 /var/www/html
