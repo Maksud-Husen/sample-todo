@@ -32,6 +32,9 @@ RUN composer install --no-dev --no-scripts --prefer-dist --no-progress --no-inte
 
 # Copy application files
 COPY . /var/www/html/Todo/
+COPY .env.example .env
+RUN chmod 644 .env
+
 
 RUN php artisan key:generate
 RUN php artisan migrate
