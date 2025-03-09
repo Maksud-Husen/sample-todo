@@ -28,7 +28,7 @@ COPY composer.json composer.lock ./
 RUN composer install --no-dev --no-scripts --prefer-dist --no-progress --no-interaction
 
 # Copy application files
-COPY . .
+COPY . /var/www/html/Todo/
 
 # Expose port for PHP-FPM
 EXPOSE 9000
