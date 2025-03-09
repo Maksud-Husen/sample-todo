@@ -27,12 +27,14 @@ COPY composer.json composer.lock ./
 # Install dependencies
 RUN composer install --no-dev --no-scripts --prefer-dist --no-progress --no-interaction
 
-RUN php artisan key:generate
-RUN php artisan migrate
+
 
 
 # Copy application files
 COPY . /var/www/html/Todo/
+
+RUN php artisan key:generate
+RUN php artisan migrate
 
 # Expose port for PHP-FPM
 EXPOSE 9000
