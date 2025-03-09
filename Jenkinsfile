@@ -6,27 +6,15 @@ pipeline {
     }
 
     stages {
-        stage('Clone Repository') {
+        stage('Clone Repo') {
             steps {
-                script {
-                    checkout([$class: 'GitSCM',
-                        branches: [[name: '*/master']],
-                        userRemoteConfigs: [[ url: 'git@github.com:Prabhasgyawali/sample-todo.git',
-                        ]]
-                    ])
-                }
+                git 'git@github.com:Prabhasgyawali/sample-todo.git'
             }
         }
 
-        stage('Build Laravel Containers') {
+        stage('Build & Start Containers') {
             steps {
-                sh "${COMPOSE_CMD} build"
-            }
-        }
-
-        stage('Start Containers') {
-            steps {
-                sh "${COMPOSE_CMD} up -d"
+                sh "${COMPOSE_CMD} up --build -d"
             }
         }
 
@@ -35,14 +23,11 @@ pipeline {
                 sh "${COMPOSE_CMD} ps"
             }
         }
-
     }
 
     post {
         always {
-            script {
-                sh "${COMPOSE_CMD} logs || true"
-            }
+            sh "${COMPOSE_CMD} logs || true"
         }
     }
 }
