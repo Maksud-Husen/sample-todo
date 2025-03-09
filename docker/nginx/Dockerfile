@@ -4,7 +4,7 @@ FROM nginx:latest
 WORKDIR /var/www/html/Todo
 
 # Copy custom Nginx configuration
-COPY /home/prabhas/jenkins_project/TodoApp/docker/nginx/default.conf /etc/nginx/conf.d/
+COPY ./docker/nginx/default.conf /etc/nginx/conf.d/
 
 # Set correct permissions
 RUN chmod -R 755 /var/www/html
