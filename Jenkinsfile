@@ -8,7 +8,10 @@ pipeline {
     stages {
         stage('Clone Repo') {
             steps {
-                git 'git@github.com:Maksud-Husen/sample-todo.git'
+                sh '''
+                rm -rf sample-todo || true
+                git clone https://github.com/Maksud-Husen/sample-todo.git
+                '''
             }
         }
 
