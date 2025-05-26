@@ -37,11 +37,11 @@ pipeline {
         }
     
 
-        // stage('restarting app conterner') {
-        //     steps {
-        //         sh "docker restart laravel_app"
-        //     }
-        // }
+        stage('restarting app conterner') {
+            steps {
+                sh "docker restart laravel_app"
+            }
+        }
     }
 
         post {
