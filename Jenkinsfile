@@ -8,10 +8,11 @@ pipeline {
     stages {
         stage('Clone Repo') {
             steps {
-                git 'git@github.com:Maksud-Husen/sample-todo.git'              
+                git credentialsId: 'git', url: 'git@github.com:Maksud-Husen/sample-todo.git'
             }
         }
-        stage ('deleting old containers') {
+
+        stage('Delete Old Containers') {
             steps {
                 sh "${COMPOSE_CMD} down || true"
             }
@@ -32,7 +33,9 @@ pipeline {
 
     post {
         always {
-            sh "${COMPOSE_CMD} logs || true"
+            script {
+                sh "${COMPOSE_CMD} logs || true"
+            }
         }
     }
 }
