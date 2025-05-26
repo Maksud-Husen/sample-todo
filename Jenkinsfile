@@ -6,6 +6,11 @@ pipeline {
     }
 
     stages {
+        stage('Removing Old Containers') {
+            steps {
+                sh "${COMPOSE_CMD} down || true"
+            }
+        }
         stage('Clone Repo') {
             steps {
                 sh '''
