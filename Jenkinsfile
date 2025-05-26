@@ -6,27 +6,40 @@ pipeline {
     }
 
     stages {
+        stage('Cleanup Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+
         stage('Clone Repo') {
             steps {
-                git credentialsId: 'git', url: 'git@github.com:Maksud-Husen/sample-todo.git'
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*/master']],
+                    userRemoteConfigs: [[
+                        url: 'git@github.com:Maksud-Husen/sample-todo.git',
+                        credentialsId: 'git'
+                    ]]
+                ])
             }
         }
 
         stage('Delete Old Containers') {
             steps {
-                sh "${COMPOSE_CMD} down || true"
+                sh "${env.COMPOSE_CMD} down || true"
             }
         }
 
         stage('Build & Start Containers') {
             steps {
-                sh "${COMPOSE_CMD} up --build -d"
+                sh "${env.COMPOSE_CMD} up --build -d"
             }
         }
 
         stage('Check Running Containers') {
             steps {
-                sh "${COMPOSE_CMD} ps"
+                sh "${env.COMPOSE_CMD} ps"
             }
         }
     }
@@ -34,7 +47,7 @@ pipeline {
     post {
         always {
             script {
-                sh "${COMPOSE_CMD} logs || true"
+                sh "${env.COMPOSE_CMD} logs || true"
             }
         }
     }
