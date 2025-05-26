@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Clone Repo') {
             steps {
-                git credentialsId: 'git', url: 'git@github.com:Maksud-Husen/sample-todo.git'
+                git 'git@github.com:Maksud-Husen/sample-todo.git'
             }
         }
 
