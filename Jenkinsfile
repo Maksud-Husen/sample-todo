@@ -6,47 +6,35 @@ pipeline {
     }
 
     stages {
-        stage('Checkout Repo') {
+        stage('Clone Repo') {
             steps {
-                checkout scm
+                ''' rm -rf sample-todo || true
+                git clone https://github.com/Maksud-Husen/sample-todo.git
+                '''              
             }
         }
-
-        stage('Remove Old Containers') {
+        stage ('deleting old containers') {
             steps {
-                dir('sample-todo') {
-                    sh "${COMPOSE_CMD} down || true"
-                }
+                sh "${COMPOSE_CMD} down || true"
             }
         }
 
         stage('Build & Start Containers') {
             steps {
-                dir('sample-todo') {
-                    sh "${COMPOSE_CMD} up --build -d"
-                }
+                sh "${COMPOSE_CMD} up --build -d"
             }
         }
 
         stage('Check Running Containers') {
             steps {
-                dir('sample-todo') {
-                    sh "${COMPOSE_CMD} ps -a"
-                }
-            }
-        }
-    
-
-        stage('restarting app conterner') {
-            steps {
-                sh "docker restart laravel_app"
+                sh "${COMPOSE_CMD} ps"
             }
         }
     }
 
-        post {
-            always {
-                sh "${COMPOSE_CMD} logs || true"
-            }
+    post {
+        always {
+            sh "${COMPOSE_CMD} logs || true"
         }
     }
+}
