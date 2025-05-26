@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Removing Old Containers') {
             steps {
-                sh "${COMPOSE_CMD} down || true"
+                sh "${COMPOSE_CMD} down"
             }
         }
         stage('Clone Repo') {
@@ -24,18 +24,18 @@ pipeline {
             steps {
                 sh "${COMPOSE_CMD} up --build -d"
             }
-        }
+        }   
 
         stage('Check Running Containers') {
             steps {
                 sh "${COMPOSE_CMD} ps"
             }
         }
-        stage('restarting app conterner') {
-            steps {
-                sh "docker restart laravel_app"
-            }
-        }
+        // stage('restarting app conterner') {
+        //     steps {
+        //         sh "docker restart laravel_app"
+        //     }
+        // }
     }
 
     post {
