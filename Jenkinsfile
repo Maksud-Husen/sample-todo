@@ -8,9 +8,8 @@ pipeline {
     stages {
         stage('Clone Repo') {
             steps {
-                ''' rm -rf sample-todo || true
-                git clone git@github.com:Maksud-Husen/sample-todo.git
-                '''              
+                sh 'rm -rf sample-todo || true'
+                git 'git@github.com:Maksud-Husen/sample-todo.git'              
             }
         }
         stage ('deleting old containers') {
