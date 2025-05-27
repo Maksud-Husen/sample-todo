@@ -42,6 +42,11 @@ pipeline {
                 sh "${env.COMPOSE_CMD} ps"
             }
         }
+        stage('restarting an contener') {
+            steps {
+                sh "docker restart laravel_app"
+            }
+        }
     }
 
     post {
